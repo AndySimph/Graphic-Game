@@ -4,6 +4,8 @@
 
 #pragma once
 
+enum class gameState {PLAY, EXIT};
+
 class game{
     public:
         game();
@@ -11,10 +13,14 @@ class game{
 
         void run();
 
-        void initSystems();
-
     private:
+        void initSystems();
+        void gameLoop();
+        void processInput();
+
         SDL_Window* _window;
         int _screenWidth;
         int _screenHeight;
+
+        gameState _gameState;
 };

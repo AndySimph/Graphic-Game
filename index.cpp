@@ -1,7 +1,7 @@
 //Programmer: Andy Simphaly
 
 //Libraries
-#include <iostream>
+//#include <iostream>
 #include "game.h"
 
 int main (int argc, char** argv) {
@@ -9,9 +9,9 @@ int main (int argc, char** argv) {
     game mainGame;
     mainGame.run();
 
-    std::cout<<"what"<<std::endl;
-    int a;
-    std::cin>>a;
+    // std::cout<<"what"<<std::endl;
+    // int a;
+    // std::cin>>a;
 
     return 0;
 }
