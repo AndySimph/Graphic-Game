@@ -32,6 +32,9 @@ game::~game() {
 void game::run() {
     initSystems();
 
+    //Initialize the test sprite
+    _sprite.initSprite(-1.0f, -1.0f, 1.0f, 1.0f);
+
     gameLoop();
 }
 
@@ -56,6 +59,7 @@ void game::initSystems() {
         fatalError("SDL_GL context could not be created.");
     }
 
+    //Set up GL error
     GLenum error = glewInit();
 
     //Error checking
@@ -76,9 +80,10 @@ void game::initSystems() {
 void game::gameLoop() {
     
     while (_gameState != gameState::EXIT) {
-
+        //Process input
         processInput();
 
+        //Draw the board
         draw();
     }
 
@@ -115,14 +120,8 @@ void game::draw() {
     glClearDepth(1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glBegin(GL_QUADS);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(-0.5f, -0.5f);    
-    glVertex2f( 0.5f, -0.5f);
-    glVertex2f( 0.5f,  0.5f);
-    glVertex2f(-0.5f,  0.5f);
-    glEnd();
-
+    //Draw the test sprite
+    _sprite.drawSprite();
 
     //Swap the Gl windows to window
     SDL_GL_SwapWindow(_window);

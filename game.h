@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include "sprite.h"
 //#include <GL/glut.h>
 
 #pragma once
@@ -30,4 +31,6 @@ class game{
         int _screenHeight;
 
         gameState _gameState;
+
+        sprite _sprite;
 };
