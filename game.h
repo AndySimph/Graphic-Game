@@ -1,8 +1,16 @@
+//Header file for game class
 //Libraries
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <GL/gl.h>
+
 #include "sprite.h"
+
+#include <iostream>
+#include <string>
+#include "error.h"
+
+#include "GLSLProgram.h"
 //#include <GL/glut.h>
 
 #pragma once
@@ -21,11 +29,7 @@ class game{
         void run();
 
     private:
-        void initSystems();
-        void gameLoop();
-        void processInput();
-        void draw();
-
+        //Variables for the window
         SDL_Window* _window;
         int _screenWidth;
         int _screenHeight;
@@ -33,4 +37,14 @@ class game{
         gameState _gameState;
 
         sprite _sprite;
+
+        GLSLProgram _colorProg;
+
+        //Functions
+        void initSystems();
+        void initShaders();
+        void gameLoop();
+        void processInput();
+        void draw();
+
 };

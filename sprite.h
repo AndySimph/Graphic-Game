@@ -1,4 +1,8 @@
+//Header file for sprite class
+
+//Libraries
 #include <GL/glew.h>
+
 #pragma once
 
 class sprite {

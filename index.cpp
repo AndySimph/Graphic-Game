@@ -1,4 +1,5 @@
 //Programmer: Andy Simphaly
+//Driver file
 
 //Compile command
 //g++ *.cpp -lSDL2 -lGLEW -lGL

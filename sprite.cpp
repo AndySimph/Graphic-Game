@@ -1,8 +1,11 @@
+//File that contains functions for the sprite class
+
+//Libraries
 #include "sprite.h"
 
 //Constructor
-sprite::sprite() {
-    _vboID = 0;
+sprite::sprite() : _vboID(0) {
+    //_vboID = 0;
 }
 
 //Destructor

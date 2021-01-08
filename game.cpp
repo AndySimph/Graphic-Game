@@ -1,26 +1,14 @@
+//File that contains functions for the game class
 
+//Libraries
 #include "game.h"
-#include <iostream>
-#include <string>
-
-//Error function
-void fatalError(std::string errorStr) {
-    std::cout<<errorStr<<std::endl;
-    std::cout<<"Enter any key to quit"<<std::endl;
-    char temp;
-    std::cin>>temp;
-
-    SDL_Quit();
-
-    return;
-}
 
 //Main game function
-game::game() {
-    _window = nullptr;
-    _screenWidth = 1024;
-    _screenHeight = 768;
-    _gameState = gameState::PLAY;
+game::game() : _window(nullptr), _screenWidth(1024), _screenHeight(768), _gameState(gameState::PLAY) {
+    // _window = nullptr;
+    // _screenWidth = 1024;
+    // _screenHeight = 768;
+    // _gameState = gameState::PLAY;
 }
 
 //Deconstructor
@@ -73,7 +61,18 @@ void game::initSystems() {
     //Set background of window
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+    //function call to initialize shaders
+    initShaders();
+
     return;
+}
+
+//Function to initialize shaders
+void game::initShaders() {
+    //Compile, add and link the shaders
+    _colorProg.compileShaders("Shaders/colorShading.vert", "Shaders/colorShading.frag");
+    _colorProg.addAttribute("vertexPos");
+    _colorProg.linkShaders();
 }
 
 //Function to loop the game
@@ -120,8 +119,14 @@ void game::draw() {
     glClearDepth(1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    //Use the shaders
+    _colorProg.enable();
+
     //Draw the test sprite
     _sprite.drawSprite();
+
+    //Disable the shaders
+    _colorProg.disable();
 
     //Swap the Gl windows to window
     SDL_GL_SwapWindow(_window);
