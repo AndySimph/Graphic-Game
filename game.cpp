@@ -72,6 +72,7 @@ void game::initShaders() {
     //Compile, add and link the shaders
     _colorProg.compileShaders("Shaders/colorShading.vert", "Shaders/colorShading.frag");
     _colorProg.addAttribute("vertexPos");
+    _colorProg.addAttribute("vertexColor");
     _colorProg.linkShaders();
 }
 

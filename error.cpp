@@ -2,6 +2,7 @@
 
 //Libraries
 #include "error.h"
+#include <cstdlib>
 
 //Error function
 void fatalError(std::string errorStr) {
@@ -11,6 +12,7 @@ void fatalError(std::string errorStr) {
     std::cin>>temp;
 
     SDL_Quit();
+    exit(69);
 
     return;
 }

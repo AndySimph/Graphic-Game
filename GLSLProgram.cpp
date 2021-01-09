@@ -18,6 +18,9 @@ GLSLProgram::~GLSLProgram() {
 //Function to compile shaders
 void GLSLProgram::compileShaders(const std::string& vertShaderpath, const std::string& fragShaderpath) {
     
+    //Set _progID
+    _progID = glCreateProgram();
+    
     //set vertShaderID and do error checking
     _vertShaderID = glCreateShader(GL_VERTEX_SHADER);
     if (!(_vertShaderID)) {
@@ -39,9 +42,6 @@ void GLSLProgram::compileShaders(const std::string& vertShaderpath, const std::s
 
 //Function to link shaders
 void GLSLProgram::linkShaders() {
-
-    //Set _progID
-    _progID = glCreateProgram();
 
     //Attach shaders to _progID
     glAttachShader(_progID, _vertShaderID);
