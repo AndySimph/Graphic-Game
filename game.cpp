@@ -4,11 +4,11 @@
 #include "game.h"
 
 //Main game function
-game::game() : _window(nullptr), _screenWidth(1024), _screenHeight(768), _gameState(gameState::PLAY) {
-    // _window = nullptr;
-    // _screenWidth = 1024;
-    // _screenHeight = 768;
-    // _gameState = gameState::PLAY;
+game::game() : _window(nullptr), 
+                _screenWidth(1024), 
+                _screenHeight(768), 
+                _gameState(gameState::PLAY), 
+                _time(0.0f) {
 }
 
 //Deconstructor
@@ -21,7 +21,7 @@ void game::run() {
     initSystems();
 
     //Initialize the test sprite
-    _sprite.initSprite(-1.0f, -1.0f, 1.0f, 1.0f);
+    _sprite.initSprite(-1.0, -1.0, 2.0, 2.0);
 
     gameLoop();
 }
@@ -83,6 +83,8 @@ void game::gameLoop() {
         //Process input
         processInput();
 
+        _time += 0.01;
+
         //Draw the board
         draw();
     }
@@ -107,6 +109,11 @@ void game::processInput() {
             case SDL_MOUSEMOTION:
                 std::cout<<event.motion.x<<" "<<event.motion.y<< std::endl;
                 break;
+
+            //Quit on release of mouse button for faster testing
+            case SDL_MOUSEBUTTONUP:
+                _gameState = gameState::EXIT;
+                break;
         }
 
     }
@@ -116,12 +123,19 @@ void game::processInput() {
 
 //Function to draw the game
 void game::draw() {
+
+    
+
     //Clear the current buffer
     glClearDepth(1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //Use the shaders
     _colorProg.enable();
+
+    //Set the time location using time
+    GLuint timeLocation = _colorProg.getuniformLocation("time");
+    glUniform1f(timeLocation, _time);
 
     //Draw the test sprite
     _sprite.drawSprite();

@@ -40,6 +40,8 @@ class game{
 
         GLSLProgram _colorProg;
 
+        float _time;
+
         //Functions
         void initSystems();
         void initShaders();

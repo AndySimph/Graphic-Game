@@ -7,7 +7,6 @@
 
 //Constructor
 sprite::sprite() : _vboID(0) {
-    //_vboID = 0;
 }
 
 //Destructor

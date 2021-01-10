@@ -6,8 +6,10 @@
 #include <vector>
 
 //Constructor
-GLSLProgram::GLSLProgram() : _progID(0), _vertShaderID(0), _fragShaderID(0), _numAttributes(0) {
-
+GLSLProgram::GLSLProgram() : _progID(0), 
+                            _vertShaderID(0), 
+                            _fragShaderID(0), 
+                            _numAttributes(0) {
 }
 
 //Destructor
@@ -20,7 +22,7 @@ void GLSLProgram::compileShaders(const std::string& vertShaderpath, const std::s
     
     //Set _progID
     _progID = glCreateProgram();
-    
+
     //set vertShaderID and do error checking
     _vertShaderID = glCreateShader(GL_VERTEX_SHADER);
     if (!(_vertShaderID)) {
@@ -88,6 +90,18 @@ void GLSLProgram::addAttribute(const std::string& attrName) {
     return;
 }
 
+//Function to get the uniform Location
+GLint GLSLProgram::getuniformLocation(const std::string& uniformName) {
+    GLint location = glGetUniformLocation(_progID, uniformName.c_str());
+
+    //Error checking
+    if (location == GL_INVALID_INDEX) {
+        fatalError("Uniform " + uniformName + " not found in shader");
+    }
+
+    return location;
+}
+
 //Function to enable shaders
 void GLSLProgram::enable() {
     //Set use program to _progID and enable vertex attributes
@@ -150,7 +164,7 @@ void GLSLProgram::compileShader(const std::string& filePath, GLuint& id) {
         glDeleteShader(id);
 
         std::printf("%s\n", &errorLog[0]);
-        fatalError("Shader " + filePath + "failed to compile");
+        fatalError("Shader " + filePath + " failed to compile");
     }
 
     return;

@@ -18,6 +18,9 @@ class GLSLProgram {
         void linkShaders();
         void addAttribute(const std::string& attrName);
 
+
+        GLint getuniformLocation(const std::string& uniformName);
+
         //function to enable and disable shaders
         void enable();
         void disable();

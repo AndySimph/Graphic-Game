@@ -4,19 +4,22 @@
 #include <GL/glew.h>
 #pragma once
 
-struct vertex {
-    //Struct for positions
+//Struct for positions
     struct Pos {
         float x;
         float y;
-    } pos;
+    };
 
-    //Struct for color, 4 bytes for Red, Green, Blue, and Alpha(padding)
+//Struct for color, 4 bytes for Red, Green, Blue, and Alpha(padding)
     struct Color {
         GLubyte r;
         GLubyte g;
         GLubyte b;
         GLubyte a;
-    } color;
+    };
+
+struct vertex {
+    Pos pos;
+    Color color;
 
 };
