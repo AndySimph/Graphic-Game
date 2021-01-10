@@ -2,7 +2,6 @@
 
 //Libraries
 #include "error.h"
-#include <cstdlib>
 
 //Error function
 void fatalError(std::string errorStr) {

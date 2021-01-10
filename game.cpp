@@ -139,7 +139,7 @@ void game::draw() {
     //Bind the texture
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, _playerTexture.id);
-    GLint textureLocation = _colorProg.getuniformLocation("mySampler");
+    GLint textureLocation = _colorProg.getuniformLocation("textureSampler");
     glUniform1i(textureLocation, 0);
 
     //Set the time location using time

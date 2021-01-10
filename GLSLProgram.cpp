@@ -2,8 +2,6 @@
 
 //Libraries
 #include "GLSLProgram.h"
-#include <fstream>
-#include <vector>
 
 //Constructor
 GLSLProgram::GLSLProgram() : _progID(0), 

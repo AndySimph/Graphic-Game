@@ -2,6 +2,8 @@
 
 //Libraries
 #include <GL/glew.h>
+#include "vertex.h"
+#include <cstddef>
 
 #pragma once
 

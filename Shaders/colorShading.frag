@@ -13,11 +13,11 @@ out vec4 color;
 uniform float time;
 
 //uniform sampler for the texture
-uniform sampler2D mySampler;
+uniform sampler2D textureSampler;
 
 void main() {
 
-    vec4 textureColor= texture(mySampler, fragUV);
+    vec4 textureColor= texture(textureSampler, fragUV);
 
     //Create colors using time and position
     color = vec4(fragColor.r * (cos(fragPos.x * 4 + time) + 1.0) * 0.5, 

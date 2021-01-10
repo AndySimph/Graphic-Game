@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <cstdlib>
 
 #pragma once
 

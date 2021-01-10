@@ -2,7 +2,6 @@
 
 //Libraries
 #include "IOManager.h"
-#include <fstream>
 
 bool IOManager::readFileToBuffer(std::string filePath, std::vector<unsigned char>& buffer) {
 

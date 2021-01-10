@@ -3,6 +3,7 @@
 //Libraries
 #include <vector>
 #include <string>
+#include <fstream>
 #pragma once
 
 class IOManager {

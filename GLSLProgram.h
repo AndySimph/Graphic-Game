@@ -3,6 +3,8 @@
 //Libraries
 #include <string>
 #include <GL/glew.h>
+#include <fstream>
+#include <vector>
 #include "error.h"
 
 #pragma once

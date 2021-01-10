@@ -2,8 +2,6 @@
 
 //Libraries
 #include "sprite.h"
-#include "vertex.h"
-#include <cstddef>
 
 //Constructor
 sprite::sprite() : _vboID(0) {

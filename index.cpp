@@ -8,7 +8,6 @@
 //Libraries
 //#include <iostream>
 #include "game.h"
-#include "sprite.h"
 
 int main (int argc, char** argv) {
     //Declare and run game
