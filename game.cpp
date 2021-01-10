@@ -24,7 +24,7 @@ void game::run() {
     _sprite.initSprite(-1.0, -1.0, 2.0, 2.0);
 
     //Load texture
-    _playerTexture = ImgLoader::LoadPNG("Textures/JimmyJump_pack/PNG/Coin.png");
+    _playerTexture = ImgLoader::LoadPNG("Textures/JimmyJump_pack/PNG/Bubble_Big.png");
 
     //Loops until game has ended
     gameLoop();
@@ -143,8 +143,8 @@ void game::draw() {
     glUniform1i(textureLocation, 0);
 
     //Set the time location using time
-    // GLuint timeLocation = _colorProg.getuniformLocation("time");
-    // glUniform1f(timeLocation, _time);
+    GLuint timeLocation = _colorProg.getuniformLocation("time");
+    glUniform1f(timeLocation, _time);
 
     //Draw the test sprite
     _sprite.drawSprite();

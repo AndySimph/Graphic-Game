@@ -25,5 +25,5 @@ void main() {
     //Set fragment position, color, UV
     fragPos = vertexPos;
     fragColor = vertexColor;
-    fragUV = vertexUV;
+    fragUV = vec2(vertexUV.x, 1.0 - vertexUV.y);
 }

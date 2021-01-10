@@ -19,7 +19,7 @@ GLTexture ImgLoader::LoadPNG(std::string filepath) {
     //Error checking
     int errorCode = decodePNG(out, width, height, &(in[0]), in.size());
     if (errorCode != 0) {
-        //fatalError("Decode PNG failed with error: " + std::to_string(errorCode));
+        fatalError("Decode PNG failed with error: " + std::to_string(errorCode));
     }
 
     //Generate openGL texture object

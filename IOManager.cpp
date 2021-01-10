@@ -21,10 +21,10 @@ bool IOManager::readFileToBuffer(std::string filePath, std::vector<unsigned char
     file.seekg(0, std::ios::beg);
 
     //Ignore file header bytes
-    fileSize -= file.tellg();
+    fileSize -= (unsigned int)file.tellg();
 
     //Read in file
-    buffer.reserve(fileSize);
+    buffer.resize(fileSize);
     file.read((char *)&(buffer[0]), fileSize);
 
     //Close file
