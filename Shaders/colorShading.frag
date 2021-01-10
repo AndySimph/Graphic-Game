@@ -17,6 +17,7 @@ uniform sampler2D textureSampler;
 
 void main() {
 
+    //Set textureColor using the texture and UV
     vec4 textureColor= texture(textureSampler, fragUV);
 
     //Create colors using time and position

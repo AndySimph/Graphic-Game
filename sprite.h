@@ -1,9 +1,13 @@
 //Header file for sprite class
 
 //Libraries
-#include <GL/glew.h>
-#include "vertex.h"
 #include <cstddef>
+#include <string>
+#include <GL/glew.h>
+
+#include "vertex.h"
+#include "GLTexture.h"
+#include "ResourceManager.h"
 
 #pragma once
 
@@ -12,7 +16,7 @@ class sprite {
         sprite();
         ~sprite();
 
-        void initSprite(float x, float y, float width, float height);
+        void initSprite(float x, float y, float width, float height, std::string texturePath);
         void drawSprite();
 
     private:
@@ -23,5 +27,7 @@ class sprite {
 
         //32 bit unsigned int given using GL
         GLuint _vboID;
+
+        GLTexture _texture;
 
 };

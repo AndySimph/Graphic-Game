@@ -6,7 +6,6 @@
 //g++ *.cpp -lSDL2 -lGLEW -lGL -lglut
 
 //Libraries
-//#include <iostream>
 #include "game.h"
 
 int main (int argc, char** argv) {

@@ -1,19 +1,16 @@
 //Header file for game class
 //Libraries
+#include <iostream>
+#include <string>
+#include <vector>
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <GL/gl.h>
 
 #include "sprite.h"
 #include "GLTexture.h"
-#include "ImgLoader.h"
-
-#include <iostream>
-#include <string>
 #include "error.h"
-
 #include "GLSLProgram.h"
-//#include <GL/glut.h>
 
 #pragma once
 
@@ -38,13 +35,13 @@ class game{
 
         gameState _gameState;
 
-        sprite _sprite;
+        std::vector<sprite*> _sprites;
 
         GLSLProgram _colorProg;
 
         float _time;
 
-        GLTexture _playerTexture;
+        //GLTexture _playerTexture;
 
         //Functions
         void initSystems();

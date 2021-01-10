@@ -2,9 +2,9 @@
 
 //Libraries
 #include <string>
-#include <GL/glew.h>
 #include <fstream>
 #include <vector>
+#include <GL/glew.h>
 #include "error.h"
 
 #pragma once

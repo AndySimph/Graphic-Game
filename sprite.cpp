@@ -15,12 +15,14 @@ sprite::~sprite() {
 }
 
 //Function to initialize the sprite
-void sprite::initSprite(float x, float y, float width, float height) {
+void sprite::initSprite(float x, float y, float width, float height, std::string texturePath) {
     //Set default values
     _x = x;
     _y = y;
     _width = width;
     _height = height;
+
+    _texture = ResourceManager::getText(texturePath);
 
     //Generate _vboID buffer it it isn't equalt to 0
     if (!(_vboID)) {
@@ -66,6 +68,9 @@ void sprite::initSprite(float x, float y, float width, float height) {
 
 //Function to draw sprite
 void sprite::drawSprite() {
+
+    glBindTexture(GL_TEXTURE_2D, _texture.id);
+
     //Bind buffer to object
     glBindBuffer(GL_ARRAY_BUFFER, _vboID);
 

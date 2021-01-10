@@ -21,10 +21,18 @@ void game::run() {
     initSystems();
 
     //Initialize the test sprite
-    _sprite.initSprite(-1.0, -1.0, 2.0, 2.0);
+    _sprites.push_back(new sprite());
+    _sprites.back()->initSprite(-1.0, -1.0, 1.0, 1.0, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
+
+    _sprites.push_back(new sprite());
+    _sprites.back()->initSprite(0.0, -1.0, 1.0, 1.0, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
+
+    _sprites.push_back(new sprite());
+    _sprites.back()->initSprite(-1.0, 0.0, 1.0, 1.0, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
+
 
     //Load texture
-    _playerTexture = ImgLoader::LoadPNG("Textures/JimmyJump_pack/PNG/Bubble_Big.png");
+    //_playerTexture = ImgLoader::LoadPNG("Textures/JimmyJump_pack/PNG/Bubble_Big.png");
 
     //Loops until game has ended
     gameLoop();
@@ -112,7 +120,7 @@ void game::processInput() {
 
             //Record mouse motion within the window
             case SDL_MOUSEMOTION:
-                std::cout<<event.motion.x<<" "<<event.motion.y<< std::endl;
+                //std::cout<<event.motion.x<<" "<<event.motion.y<< std::endl;
                 break;
 
             //Quit on release of mouse button for faster testing
@@ -138,7 +146,6 @@ void game::draw() {
 
     //Bind the texture
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _playerTexture.id);
     GLint textureLocation = _colorProg.getuniformLocation("textureSampler");
     glUniform1i(textureLocation, 0);
 
@@ -147,7 +154,9 @@ void game::draw() {
     glUniform1f(timeLocation, _time);
 
     //Draw the test sprite
-    _sprite.drawSprite();
+    for (int i = 0; i < _sprites.size(); i++) {
+        _sprites[i]->drawSprite();
+    }
 
     //Unbind the texture
     glBindTexture(GL_TEXTURE_2D, 0);
