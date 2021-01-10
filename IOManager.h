@@ -2,6 +2,7 @@
 
 //Libraries
 #include <vector>
+#include <string>
 #pragma once
 
 class IOManager {
@@ -13,4 +14,4 @@ class IOManager {
 
     private:
 
-}
+};
