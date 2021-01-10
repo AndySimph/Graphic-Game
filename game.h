@@ -5,6 +5,8 @@
 #include <GL/gl.h>
 
 #include "sprite.h"
+#include "GLTexture.h"
+#include "ImgLoader.h"
 
 #include <iostream>
 #include <string>
@@ -41,6 +43,8 @@ class game{
         GLSLProgram _colorProg;
 
         float _time;
+
+        GLTexture _playerTexture;
 
         //Functions
         void initSystems();

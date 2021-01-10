@@ -5,10 +5,12 @@
 //Vector position and color
 in vec2 vertexPos;
 in vec4 vertexColor;
+in vec2 vertexUV;
 
 //Send out fragment position and color
 out vec2 fragPos;
 out vec4 fragColor;
+out vec2 fragUV;
 
 void main() {
     //Set x and y position on screen
@@ -20,7 +22,8 @@ void main() {
     //Indicate that the coordinates are normalized
     gl_Position.w = 1.0;
 
-    //Set fragment position and color
+    //Set fragment position, color, UV
     fragPos = vertexPos;
     fragColor = vertexColor;
+    fragUV = vertexUV;
 }

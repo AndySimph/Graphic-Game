@@ -23,6 +23,10 @@ void game::run() {
     //Initialize the test sprite
     _sprite.initSprite(-1.0, -1.0, 2.0, 2.0);
 
+    //Load texture
+    _playerTexture = ImgLoader::LoadPNG("Textures/JimmyJump_pack/PNG/Coin.png");
+
+    //Loops until game has ended
     gameLoop();
 }
 
@@ -73,6 +77,7 @@ void game::initShaders() {
     _colorProg.compileShaders("Shaders/colorShading.vert", "Shaders/colorShading.frag");
     _colorProg.addAttribute("vertexPos");
     _colorProg.addAttribute("vertexColor");
+    _colorProg.addAttribute("vertexUV");
     _colorProg.linkShaders();
 }
 
@@ -124,8 +129,6 @@ void game::processInput() {
 //Function to draw the game
 void game::draw() {
 
-    
-
     //Clear the current buffer
     glClearDepth(1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -133,12 +136,21 @@ void game::draw() {
     //Use the shaders
     _colorProg.enable();
 
+    //Bind the texture
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _playerTexture.id);
+    GLint textureLocation = _colorProg.getuniformLocation("mySampler");
+    glUniform1i(textureLocation, 0);
+
     //Set the time location using time
-    GLuint timeLocation = _colorProg.getuniformLocation("time");
-    glUniform1f(timeLocation, _time);
+    // GLuint timeLocation = _colorProg.getuniformLocation("time");
+    // glUniform1f(timeLocation, _time);
 
     //Draw the test sprite
     _sprite.drawSprite();
+
+    //Unbind the texture
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     //Disable the shaders
     _colorProg.disable();
