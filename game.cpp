@@ -99,6 +99,7 @@ void game::gameLoop() {
         //Draw the board
         draw();
 
+        //Calculate fps
         calculateFPS();
         
         //Print once every 10 frames
@@ -189,33 +190,41 @@ void game::draw() {
 //Function to calculate fps
 void game::calculateFPS() {
 
+    //Declare variables
     static const int NUM_SAMPLES = 10;
     static float frameTimes[NUM_SAMPLES];
     static int currFrame = 0;
     static float prevTicks = SDL_GetTicks();
 
+    //Get current ticks
     float currTicks = SDL_GetTicks();
 
+    //Set current frametime
     _frametime = currTicks - prevTicks;
     frameTimes[currFrame % NUM_SAMPLES] = _frametime;
 
+    //Set previous ticks to current
     prevTicks = currTicks;
 
+    //increment current frame
     int count;
     currFrame++;
 
+    //Check if count needs to be above or below num samples
     if (currFrame < NUM_SAMPLES) {
         count = currFrame;
     } else {
         count = NUM_SAMPLES;
     }
 
+    //Calculate average frame time
     float frameTimeAvg = 0;
     for (int i = 0; i < count; i ++) {
         frameTimeAvg += frameTimes[i];
     }
     frameTimeAvg /= count;
 
+    //Check and adjust fps according to average frame time
     if (frameTimeAvg) {
         _fps = 1000.0f / frameTimeAvg;
     } else {
