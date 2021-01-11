@@ -1,4 +1,4 @@
-
+//Functions of the window class
 
 //Libraries
 #include "window.h"

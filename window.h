@@ -1,4 +1,4 @@
-
+//Header file of the window class
 
 //Libraries
 #include <string>

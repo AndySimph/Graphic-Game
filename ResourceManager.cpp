@@ -1,4 +1,4 @@
-
+//File for functions of the resource manager
 
 //Libraries
 #include "ResourceManager.h"

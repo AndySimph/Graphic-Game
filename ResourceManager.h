@@ -1,4 +1,4 @@
-
+//Header file for the resource manager class
 
 //Libraries
 #include <string>

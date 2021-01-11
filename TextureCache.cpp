@@ -1,4 +1,4 @@
-
+//Functions of the texture cache class
 
 //Libraries
 #include "TextureCache.h"

@@ -1,4 +1,4 @@
-
+//Header file for the texture cache class
 
 //Libraries
 #include <map>
