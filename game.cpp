@@ -33,11 +33,9 @@ void game::run() {
 
 //Initialize the system
 void game::initSystems() {
-    //Initialize SDL
-    SDL_Init(SDL_INIT_EVERYTHING);
 
-    //Draw two windows so there won't be flickering, making the windows much smoother in transition
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    //Initialize the engine
+    init();
 
     //Create window
     _window.create("Game Engine", _screenWidth, _screenHeight, 0);
