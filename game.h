@@ -41,7 +41,9 @@ class game{
 
         float _time;
 
-        //GLTexture _playerTexture;
+        float _fps;
+        float _maxFps;
+        float _frametime;
 
         //Functions
         void initSystems();
@@ -49,5 +51,6 @@ class game{
         void gameLoop();
         void processInput();
         void draw();
+        void calculateFPS();
 
 };

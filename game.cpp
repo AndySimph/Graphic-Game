@@ -8,7 +8,8 @@ game::game() : _window(nullptr),
                 _screenWidth(1024), 
                 _screenHeight(768), 
                 _gameState(gameState::PLAY), 
-                _time(0.0f) {
+                _time(0.0f), 
+                _maxFps(60.0f) {
 }
 
 //Deconstructor
@@ -26,13 +27,6 @@ void game::run() {
 
     _sprites.push_back(new sprite());
     _sprites.back()->initSprite(0.0, -1.0, 1.0, 1.0, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
-
-    _sprites.push_back(new sprite());
-    _sprites.back()->initSprite(-1.0, 0.0, 1.0, 1.0, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
-
-
-    //Load texture
-    //_playerTexture = ImgLoader::LoadPNG("Textures/JimmyJump_pack/PNG/Bubble_Big.png");
 
     //Loops until game has ended
     gameLoop();
@@ -93,6 +87,10 @@ void game::initShaders() {
 void game::gameLoop() {
     
     while (_gameState != gameState::EXIT) {
+
+        //Used for frame time measuring
+        float startTicks = SDL_GetTicks();
+
         //Process input
         processInput();
 
@@ -100,6 +98,24 @@ void game::gameLoop() {
 
         //Draw the board
         draw();
+
+        calculateFPS();
+        
+        //Print once every 10 frames
+        static int frameCounter = 0;
+        frameCounter++;
+        if (frameCounter == 10) {
+            std::cout << _fps <<std::endl;
+            frameCounter = 0;
+        }
+
+        float frameTicks = SDL_GetTicks() - startTicks;
+
+        //Limit the max fps
+        if ((1000.0f / _maxFps) > frameTicks) {
+            SDL_Delay((1000.0f / _maxFps) - frameTicks);
+        }
+
     }
 
     return;
@@ -166,6 +182,45 @@ void game::draw() {
 
     //Swap the Gl windows to window
     SDL_GL_SwapWindow(_window);
+
+    return;
+}
+
+//Function to calculate fps
+void game::calculateFPS() {
+
+    static const int NUM_SAMPLES = 10;
+    static float frameTimes[NUM_SAMPLES];
+    static int currFrame = 0;
+    static float prevTicks = SDL_GetTicks();
+
+    float currTicks = SDL_GetTicks();
+
+    _frametime = currTicks - prevTicks;
+    frameTimes[currFrame % NUM_SAMPLES] = _frametime;
+
+    prevTicks = currTicks;
+
+    int count;
+    currFrame++;
+
+    if (currFrame < NUM_SAMPLES) {
+        count = currFrame;
+    } else {
+        count = NUM_SAMPLES;
+    }
+
+    float frameTimeAvg = 0;
+    for (int i = 0; i < count; i ++) {
+        frameTimeAvg += frameTimes[i];
+    }
+    frameTimeAvg /= count;
+
+    if (frameTimeAvg) {
+        _fps = 1000.0f / frameTimeAvg;
+    } else {
+        _fps = 60.0f;
+    }
 
     return;
 }

@@ -21,7 +21,6 @@ void sprite::initSprite(float x, float y, float width, float height, std::string
     _y = y;
     _width = width;
     _height = height;
-
     _texture = ResourceManager::getText(texturePath);
 
     //Generate _vboID buffer it it isn't equalt to 0
