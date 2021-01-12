@@ -13,6 +13,7 @@
 #include "GLSLProgram.h"
 #include "window.h"
 #include "Engine.h"
+#include "camera2D.h"
 
 #pragma once
 
@@ -34,6 +35,10 @@ class game{
         window _window;
         int _screenWidth;
         int _screenHeight;
+        float _time;
+        float _fps;
+        float _maxFps;
+        float _frametime;
 
         gameState _gameState;
 
@@ -41,11 +46,7 @@ class game{
 
         GLSLProgram _colorProg;
 
-        float _time;
-
-        float _fps;
-        float _maxFps;
-        float _frametime;
+        camera2D _cam;
 
         //Functions
         void initSystems();

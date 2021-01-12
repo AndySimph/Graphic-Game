@@ -12,9 +12,11 @@ out vec2 fragPos;
 out vec4 fragColor;
 out vec2 fragUV;
 
+uniform mat4 p;
+
 void main() {
     //Set x and y position on screen
-    gl_Position.xy = vertexPos;
+    gl_Position.xy = (p * vec4(vertexPos, 0.0, 1.0)).xy;
 
     //Since we are in 2D, Z is 0
     gl_Position.z = 0.0;
