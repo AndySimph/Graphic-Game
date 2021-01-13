@@ -15,6 +15,7 @@
 #include "Engine.h"
 #include "camera2D.h"
 #include "spriteBatch.h"
+#include "inputManager.h"
 
 #pragma once
 
@@ -50,6 +51,8 @@ class game{
         camera2D _cam;
 
         spriteBatch _spriteBatch;
+
+        inputManager _inputManager;
 
         //Functions
         void initSystems();

@@ -108,7 +108,7 @@ void game::processInput() {
     //Initialize event
     SDL_Event event;
 
-    const float CAMSPEED = 20;
+    const float CAMSPEED = 5;
     const float SCALESPEED = 0.1f;
 
     //While loop while an event is happening within the window
@@ -126,42 +126,48 @@ void game::processInput() {
 
             //Switch case for different keyboard presses
             case SDL_KEYDOWN:
-                switch (event.key.keysym.sym) {
-                    
-                    //Move the camera up if w is pressed
-                    case SDLK_w:
-                        _cam.setPos(_cam.getPos() + glm::vec2(0.0, CAMSPEED));
-                        break;
 
-                    //Move the camera down if s is pressed
-                    case SDLK_s:
-                        _cam.setPos(_cam.getPos() + glm::vec2(0.0, -CAMSPEED));
-                        break;
+                _inputManager.keypress(event.key.keysym.sym);
 
-                    //Move the camera right if d is pressed
-                    case SDLK_d:
-                        _cam.setPos(_cam.getPos() + glm::vec2(CAMSPEED, 0.0));
-                        break;
+                break;
 
-                    //Move the camera left if a is pressed
-                    case SDLK_a:
-                        _cam.setPos(_cam.getPos() + glm::vec2(-CAMSPEED, 0.0));
-                        break;
+            case SDL_KEYUP:
 
-                    //Move the camera left if a is pressed
-                    case SDLK_q:
-                        _cam.setScale(_cam.getScale() + SCALESPEED);
-                        break;
+                    _inputManager.keyrelease(event.key.keysym.sym);
 
-                    //Move the camera left if a is pressed
-                    case SDLK_e:
-                        _cam.setScale(_cam.getScale() - SCALESPEED);
-                        break;
-
-                }
                 break;
         }
 
+    }
+                    
+    //Move the camera up if w is pressed
+    if (_inputManager.iskeypressed(SDLK_w)) {
+        _cam.setPos(_cam.getPos() + glm::vec2(0.0, CAMSPEED));
+    }
+
+    //Move the camera down if s is pressed
+    if (_inputManager.iskeypressed(SDLK_s)) { 
+        _cam.setPos(_cam.getPos() + glm::vec2(0.0, -CAMSPEED));
+    }
+
+    //Move the camera right if d is pressed
+    if (_inputManager.iskeypressed(SDLK_d)) { 
+        _cam.setPos(_cam.getPos() + glm::vec2(CAMSPEED, 0.0));
+    }
+
+    //Move the camera left if a is pressed
+    if (_inputManager.iskeypressed(SDLK_a)) {  
+        _cam.setPos(_cam.getPos() + glm::vec2(-CAMSPEED, 0.0));
+    }
+
+    //Move the camera left if a is pressed
+    if (_inputManager.iskeypressed(SDLK_q)) {  
+        _cam.setScale(_cam.getScale() + SCALESPEED);
+    }
+
+    //Move the camera left if a is pressed
+    if (_inputManager.iskeypressed(SDLK_e)) {  
+        _cam.setScale(_cam.getScale() - SCALESPEED);
     }
 
     return;
