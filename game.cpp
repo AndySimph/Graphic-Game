@@ -21,12 +21,12 @@ game::~game() {
 void game::run() {
     initSystems();
 
-    //Initialize the test sprite
-    _sprites.push_back(new sprite());
-    _sprites.back()->initSprite(0.0, 0.0, _screenWidth/2, _screenWidth/2, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
+    // //Initialize the test sprite
+    // _sprites.push_back(new sprite());
+    // _sprites.back()->initSprite(0.0, 0.0, _screenWidth/2, _screenWidth/2, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
 
-    _sprites.push_back(new sprite());
-    _sprites.back()->initSprite(_screenWidth/2, 0.0, _screenWidth/2, _screenWidth/2, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
+    // _sprites.push_back(new sprite());
+    // _sprites.back()->initSprite(_screenWidth/2, 0.0, _screenWidth/2, _screenWidth/2, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
 
     //Loops until game has ended
     gameLoop();
@@ -43,6 +43,9 @@ void game::initSystems() {
 
     //function call to initialize shaders
     initShaders();
+
+    //Initialize sprite batch
+    _spriteBatch.init();
 
     return;
 }
@@ -189,10 +192,35 @@ void game::draw() {
 
     glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(cameraMatrix[0][0]));
 
-    //Draw the test sprite
-    for (int i = 0; i < _sprites.size(); i++) {
-        _sprites[i]->drawSprite();
-    }
+    // //Draw the test sprite
+    // for (int i = 0; i < _sprites.size(); i++) {
+    //     _sprites[i]->drawSprite();
+    // }
+
+    //Begin current sprite batch
+    _spriteBatch.begin();
+
+    //Create sprite batch values
+    glm::vec4 pos(0.0f, 0.0f, 50, 50);
+    glm::vec4 uv(0.0f, 0.0f, 1.0f, 1.0f);
+    GLTexture texture = ResourceManager::getText("Textures/JimmyJump_pack/PNG/Bubble_Big.png");
+
+    //Set color values
+    Color color;
+    color.r = 255;
+    color.g = 255;
+    color.b = 255;
+    color.a = 255;
+
+    //Draw sprites
+    _spriteBatch.draw(pos, uv, texture.id, 0.0f, color);
+    _spriteBatch.draw(pos + glm::vec4(50, 0, 0, 0), uv, texture.id, 0.0f, color);
+
+    //Post process sprite data
+    _spriteBatch.end();
+
+    //Render sprite batches
+    _spriteBatch.renderBatch();
 
     //Unbind the texture
     glBindTexture(GL_TEXTURE_2D, 0);

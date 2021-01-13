@@ -73,7 +73,10 @@ void sprite::drawSprite() {
     //Bind buffer to object
     glBindBuffer(GL_ARRAY_BUFFER, _vboID);
 
+    //Enable the vertex attributes
     glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
     
     //Position attribute pointer
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)offsetof(vertex, pos));
@@ -82,8 +85,13 @@ void sprite::drawSprite() {
     //UV attribute pointer
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void*)offsetof(vertex, uv));
 
+    //Draw the 6 vertice on the screen
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    //Disable the vertex attributes
     glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 

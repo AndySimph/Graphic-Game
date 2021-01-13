@@ -14,6 +14,7 @@
 #include "window.h"
 #include "Engine.h"
 #include "camera2D.h"
+#include "spriteBatch.h"
 
 #pragma once
 
@@ -42,11 +43,13 @@ class game{
 
         gameState _gameState;
 
-        std::vector<sprite*> _sprites;
+        //std::vector<sprite*> _sprites;
 
         GLSLProgram _colorProg;
 
         camera2D _cam;
+
+        spriteBatch _spriteBatch;
 
         //Functions
         void initSystems();
