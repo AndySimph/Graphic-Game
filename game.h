@@ -16,6 +16,7 @@
 #include "camera2D.h"
 #include "spriteBatch.h"
 #include "inputManager.h"
+#include "timing.h"
 
 #pragma once
 
@@ -39,12 +40,9 @@ class game{
         int _screenHeight;
         float _time;
         float _fps;
-        float _maxFps;
-        float _frametime;
-
+        float _maxFPS;
+        
         gameState _gameState;
-
-        //std::vector<sprite*> _sprites;
 
         GLSLProgram _colorProg;
 
@@ -54,13 +52,14 @@ class game{
 
         inputManager _inputManager;
 
+        fpsLimiter _fpsLimiter;
+
         //Functions
         void initSystems();
         void initShaders();
         void gameLoop();
         void processInput();
         void draw();
-        void calculateFPS();
 
 };
 

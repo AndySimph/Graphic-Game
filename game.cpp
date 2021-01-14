@@ -8,7 +8,7 @@ game::game() : _screenWidth(1024),
                 _screenHeight(768), 
                 _gameState(gameState::PLAY), 
                 _time(0.0f), 
-                _maxFps(60.0f) {
+                _maxFPS(60.0f) {
     _cam.init(_screenWidth, _screenHeight);
 }
 
@@ -20,13 +20,6 @@ game::~game() {
 //function to run the game 
 void game::run() {
     initSystems();
-
-    // //Initialize the test sprite
-    // _sprites.push_back(new sprite());
-    // _sprites.back()->initSprite(0.0, 0.0, _screenWidth/2, _screenWidth/2, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
-
-    // _sprites.push_back(new sprite());
-    // _sprites.back()->initSprite(_screenWidth/2, 0.0, _screenWidth/2, _screenWidth/2, "Textures/JimmyJump_pack/PNG/Bubble_Big.png");
 
     //Loops until game has ended
     gameLoop();
@@ -47,6 +40,8 @@ void game::initSystems() {
     //Initialize sprite batch
     _spriteBatch.init();
 
+    _fpsLimiter.init(_maxFPS);
+
     return;
 }
 
@@ -66,7 +61,8 @@ void game::gameLoop() {
     while (_gameState != gameState::EXIT) {
 
         //Used for frame time measuring
-        float startTicks = SDL_GetTicks();
+        //float startTicks = SDL_GetTicks();
+        _fpsLimiter.begin();
 
         //Process input
         processInput();
@@ -79,23 +75,16 @@ void game::gameLoop() {
 
         //Draw the board
         draw();
-
-        //Calculate fps
-        calculateFPS();
         
+        //Find FPS
+        _fps = _fpsLimiter.end();
+
         //Print once every 10 frames
         static int frameCounter = 0;
         frameCounter++;
         if (frameCounter == 10) {
             std::cout << _fps <<std::endl;
             frameCounter = 0;
-        }
-
-        float frameTicks = SDL_GetTicks() - startTicks;
-
-        //Limit the max fps
-        if ((1000.0f / _maxFps) > frameTicks) {
-            SDL_Delay((1000.0f / _maxFps) - frameTicks);
         }
 
     }
@@ -198,11 +187,6 @@ void game::draw() {
 
     glUniformMatrix4fv(pLocation, 1, GL_FALSE, &(cameraMatrix[0][0]));
 
-    // //Draw the test sprite
-    // for (int i = 0; i < _sprites.size(); i++) {
-    //     _sprites[i]->drawSprite();
-    // }
-
     //Begin current sprite batch
     _spriteBatch.begin();
 
@@ -236,53 +220,6 @@ void game::draw() {
 
     //Swap the Gl windows to window
     _window.swapBuffer();
-
-    return;
-}
-
-//Function to calculate fps
-void game::calculateFPS() {
-
-    //Declare variables
-    static const int NUM_SAMPLES = 10;
-    static float frameTimes[NUM_SAMPLES];
-    static int currFrame = 0;
-    static float prevTicks = SDL_GetTicks();
-
-    //Get current ticks
-    float currTicks = SDL_GetTicks();
-
-    //Set current frametime
-    _frametime = currTicks - prevTicks;
-    frameTimes[currFrame % NUM_SAMPLES] = _frametime;
-
-    //Set previous ticks to current
-    prevTicks = currTicks;
-
-    //increment current frame
-    int count;
-    currFrame++;
-
-    //Check if count needs to be above or below num samples
-    if (currFrame < NUM_SAMPLES) {
-        count = currFrame;
-    } else {
-        count = NUM_SAMPLES;
-    }
-
-    //Calculate average frame time
-    float frameTimeAvg = 0;
-    for (int i = 0; i < count; i ++) {
-        frameTimeAvg += frameTimes[i];
-    }
-    frameTimeAvg /= count;
-
-    //Check and adjust fps according to average frame time
-    if (frameTimeAvg) {
-        _fps = 1000.0f / frameTimeAvg;
-    } else {
-        _fps = 60.0f;
-    }
 
     return;
 }
