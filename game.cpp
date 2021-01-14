@@ -61,7 +61,6 @@ void game::gameLoop() {
     while (_gameState != gameState::EXIT) {
 
         //Used for frame time measuring
-        //float startTicks = SDL_GetTicks();
         _fpsLimiter.begin();
 
         //Process input
@@ -115,15 +114,12 @@ void game::processInput() {
 
             //Switch case for different keyboard presses
             case SDL_KEYDOWN:
-
                 _inputManager.keypress(event.key.keysym.sym);
-
                 break;
 
+            //Switch case for different keyboard releases
             case SDL_KEYUP:
-
-                    _inputManager.keyrelease(event.key.keysym.sym);
-
+                _inputManager.keyrelease(event.key.keysym.sym);
                 break;
         }
 
@@ -178,8 +174,8 @@ void game::draw() {
     glUniform1i(textureLocation, 0);
 
     //Set the time location using time
-    GLuint timeLocation = _colorProg.getuniformLocation("time");
-    glUniform1f(timeLocation, _time);
+    // GLuint timeLocation = _colorProg.getuniformLocation("time");
+    // glUniform1f(timeLocation, _time);
 
     //Set the camera matrix
     GLuint pLocation = _colorProg.getuniformLocation("p");
