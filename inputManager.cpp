@@ -4,7 +4,7 @@
 #include "inputManager.h"
 
 //Constructor
-inputManager::inputManager() {
+inputManager::inputManager() : _mouseCoords(0.0f, 0.0f) {
 
 }
 
@@ -40,7 +40,18 @@ bool inputManager::iskeypressed(unsigned int keyID) {
     //Check if the ID is found
     if (it != _keymap.end()) {
         return it->second;
+    } else {
+        return false;
     }
 
-    return false;
+}
+
+//Function to set mouse coordinates
+void inputManager::setMouseCoord(float x, float y) {
+
+    //Set mouse coords
+    _mouseCoords.x = x;
+    _mouseCoords.y = y;
+
+    return;
 }

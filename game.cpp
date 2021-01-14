@@ -81,7 +81,7 @@ void game::gameLoop() {
         //Print once every 10 frames
         static int frameCounter = 0;
         frameCounter++;
-        if (frameCounter == 10) {
+        if (frameCounter == 1000) {
             std::cout << _fps <<std::endl;
             frameCounter = 0;
         }
@@ -107,11 +107,6 @@ void game::processInput() {
                 _gameState = gameState::EXIT;
                 break;
 
-            //Record mouse motion within the window
-            case SDL_MOUSEMOTION:
-                //std::cout<<event.motion.x<<" "<<event.motion.y<< std::endl;
-                break;
-
             //Switch case for different keyboard presses
             case SDL_KEYDOWN:
                 _inputManager.keypress(event.key.keysym.sym);
@@ -120,6 +115,22 @@ void game::processInput() {
             //Switch case for different keyboard releases
             case SDL_KEYUP:
                 _inputManager.keyrelease(event.key.keysym.sym);
+                break;
+
+            //Mouse click
+            case SDL_MOUSEBUTTONDOWN:
+                _inputManager.keypress(event.button.button);
+                break;
+
+            //Mouse release
+            case SDL_MOUSEBUTTONUP:
+                _inputManager.keyrelease(event.button.button);
+                break;
+
+            //Record mouse motion within the window
+            case SDL_MOUSEMOTION:
+                _inputManager.setMouseCoord(event.motion.x, event.motion.y);
+                //std::cout<<event.motion.x<<" "<<event.motion.y<< std::endl;
                 break;
         }
 
@@ -154,6 +165,13 @@ void game::processInput() {
     if (_inputManager.iskeypressed(SDLK_e)) {  
         _cam.setScale(_cam.getScale() - SCALESPEED);
     }
+
+    if (_inputManager.iskeypressed(SDL_BUTTON_LEFT)) {  
+        glm::vec2 mouseCoords = _inputManager.getMouseCoord();
+        mouseCoords = _cam.convertScreenToWorld(mouseCoords);
+        std::cout<<mouseCoords.x<<" "<<mouseCoords.y<< std::endl;
+    }
+
 
     return;
 }
@@ -200,7 +218,7 @@ void game::draw() {
 
     //Draw sprites
     _spriteBatch.draw(pos, uv, texture.id, 0.0f, color);
-    _spriteBatch.draw(pos + glm::vec4(50, 0, 0, 0), uv, texture.id, 0.0f, color);
+    //_spriteBatch.draw(pos + glm::vec4(50, 0, 0, 0), uv, texture.id, 0.0f, color);
 
     //Post process sprite data
     _spriteBatch.end();

@@ -34,6 +34,8 @@ class camera2D {
         float getScale() { return _scale; }
         glm::mat4 getCam() { return _camMatrix; }
 
+        glm::vec2 convertScreenToWorld(glm::vec2 screenCoords);
+
     private:
         int _screenWidth, _screenHeight;
         bool _matrixUpdate;
