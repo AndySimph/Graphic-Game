@@ -17,6 +17,7 @@
 #include "spriteBatch.h"
 #include "inputManager.h"
 #include "timing.h"
+#include "projectile.h"
 
 #pragma once
 
@@ -53,6 +54,8 @@ class game{
         inputManager _inputManager;
 
         fpsLimiter _fpsLimiter;
+
+        std::vector<projectile> _projectiles;
 
         //Functions
         void initSystems();

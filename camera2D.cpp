@@ -56,6 +56,9 @@ void camera2D::update() {
 //Function to convert the coords of the screen to the world
 glm::vec2 camera2D::convertScreenToWorld(glm::vec2 screenCoords) {
 
+    //Invert y-axis
+    screenCoords.y = _screenHeight - screenCoords.y;
+
     //Make it so that (0, 0) is the center of the camera
     screenCoords -= glm::vec2(_screenWidth/2, _screenHeight/2);
 

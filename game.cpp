@@ -72,6 +72,16 @@ void game::gameLoop() {
         //Update camera
         _cam.update();
 
+        //Update all the bullets
+        for (int i = 0; i < _projectiles.size();) {
+            if (_projectiles[i].update()) {
+                _projectiles[i] = _projectiles.back();
+                _projectiles.pop_back();
+            } else {
+                i++;
+            }
+        }
+
         //Draw the board
         draw();
         
@@ -166,10 +176,20 @@ void game::processInput() {
         _cam.setScale(_cam.getScale() - SCALESPEED);
     }
 
+    //Set mouse coordinates and output it
     if (_inputManager.iskeypressed(SDL_BUTTON_LEFT)) {  
         glm::vec2 mouseCoords = _inputManager.getMouseCoord();
         mouseCoords = _cam.convertScreenToWorld(mouseCoords);
-        std::cout<<mouseCoords.x<<" "<<mouseCoords.y<< std::endl;
+        //std::cout<<mouseCoords.x<<" "<<mouseCoords.y<< std::endl;
+
+        //Set player position and the direction of the mouse from the player
+        glm::vec2 playerPos(0, 0);
+        glm::vec2 dirFromPlayer = mouseCoords - playerPos;
+        dirFromPlayer = glm::normalize(dirFromPlayer);
+
+        //Emplace back the projectile
+        _projectiles.emplace_back(playerPos, dirFromPlayer, 1.0f, 1000);
+
     }
 
 
@@ -219,6 +239,11 @@ void game::draw() {
     //Draw sprites
     _spriteBatch.draw(pos, uv, texture.id, 0.0f, color);
     //_spriteBatch.draw(pos + glm::vec4(50, 0, 0, 0), uv, texture.id, 0.0f, color);
+
+    //Draw the projectiles
+    for (int i = 0; i < _projectiles.size(); i++) {
+        _projectiles[i].draw(_spriteBatch);
+    }
 
     //Post process sprite data
     _spriteBatch.end();

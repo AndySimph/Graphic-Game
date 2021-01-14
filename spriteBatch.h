@@ -7,6 +7,8 @@
 #include <glm/glm.hpp>
 #include "vertex.h"
 
+#pragma once
+
 //Glyph sort type
 enum class glyphSortType {NONE, FRONT_TO_BACK, BACK_TO_FRONT, TEXTURE};
 
